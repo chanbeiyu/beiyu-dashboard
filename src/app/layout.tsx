@@ -9,6 +9,7 @@ import NextTopLoader from 'nextjs-toploader';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import './globals.css';
 import './theme.css';
+import React from 'react';
 
 const META_THEME_COLORS = {
   light: '#ffffff',
@@ -47,6 +48,7 @@ export default async function RootLayout({
             `
           }}
         />
+        <title></title>
       </head>
       <body
         className={cn(

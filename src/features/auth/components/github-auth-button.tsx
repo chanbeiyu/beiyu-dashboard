@@ -1,8 +1,8 @@
 'use client';
 
+import { Github } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Icons } from '@/components/icons';
 
 export default function GithubSignInButton() {
   const searchParams = useSearchParams();
@@ -15,7 +15,7 @@ export default function GithubSignInButton() {
       type='button'
       onClick={() => console.log('continue with github clicked')}
     >
-      <Icons.github className='mr-2 h-4 w-4' />
+      <Github className='mr-2 h-4 w-4' />
       Continue with Github
     </Button>
   );

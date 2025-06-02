@@ -27,10 +27,10 @@ import { Separator } from '@/components/ui/separator';
 import { profileSchema, type ProfileFormValues } from '../utils/form-schema';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconAlertTriangle, IconTrash } from '@tabler/icons-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
+import { AlertTriangle, Trash } from 'lucide-react';
 
 interface ProfileFormType {
   initialData: any | null;
@@ -151,7 +151,7 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({ initialData }) => {
             size='sm'
             onClick={() => setOpen(true)}
           >
-            <IconTrash className='h-4 w-4' />
+            <Trash className='h-4 w-4' />
           </Button>
         )}
       </div>
@@ -365,11 +365,11 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({ initialData }) => {
                           className='absolute right-8'
                           onClick={() => remove(index)}
                         >
-                          <IconTrash className='h-4 w-4' />
+                          <Trash className='h-4 w-4' />
                         </Button>
                         {errors?.jobs?.[index] && (
                           <span className='alert absolute right-8'>
-                            <IconAlertTriangle className='h-4 w-4 text-red-700' />
+                            <AlertTriangle className='h-4 w-4 text-red-700' />
                           </span>
                         )}
                       </AccordionTrigger>

@@ -1,6 +1,5 @@
 'use client';
 
-import { IconX, IconUpload } from '@tabler/icons-react';
 import Image from 'next/image';
 import * as React from 'react';
 import Dropzone, {
@@ -14,6 +13,7 @@ import { Progress } from '@/components/ui/progress';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useControllableState } from '@/hooks/use-controllable-state';
 import { cn, formatBytes } from '@/lib/utils';
+import { Upload, X } from 'lucide-react';
 
 interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -210,7 +210,7 @@ export function FileUploader(props: FileUploaderProps) {
             {isDragActive ? (
               <div className='flex flex-col items-center justify-center gap-4 sm:px-5'>
                 <div className='rounded-full border border-dashed p-3'>
-                  <IconUpload
+                  <Upload
                     className='text-muted-foreground size-7'
                     aria-hidden='true'
                   />
@@ -222,7 +222,7 @@ export function FileUploader(props: FileUploaderProps) {
             ) : (
               <div className='flex flex-col items-center justify-center gap-4 sm:px-5'>
                 <div className='rounded-full border border-dashed p-3'>
-                  <IconUpload
+                  <Upload
                     className='text-muted-foreground size-7'
                     aria-hidden='true'
                   />
@@ -303,7 +303,7 @@ function FileCard({ file, progress, onRemove }: FileCardProps) {
           disabled={progress !== undefined && progress < 100}
           className='size-8 rounded-full'
         >
-          <IconX className='text-muted-foreground' />
+          <X className='text-muted-foreground' />
           <span className='sr-only'>Remove file</span>
         </Button>
       </div>

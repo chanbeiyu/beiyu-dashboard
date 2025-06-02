@@ -18,6 +18,10 @@
       "@/*": ["./src/*"],
       "~/*": ["./public/*"]
     },
+    "types": [
+      "@types/tailwindcss",
+      "./src/types/iconify"
+    ],
     "incremental": true,
     "plugins": [
       {

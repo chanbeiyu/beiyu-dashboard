@@ -1,7 +1,7 @@
 'use client';
 
+import { TrendingUp } from 'lucide-react';
 import * as React from 'react';
-import { IconTrendingUp } from '@tabler/icons-react';
 import { Label, Pie, PieChart } from 'recharts';
 
 import {
@@ -152,7 +152,7 @@ export function PieGraph() {
         <div className='flex items-center gap-2 leading-none font-medium'>
           Chrome leads with{' '}
           {((chartData[0].visitors / totalVisitors) * 100).toFixed(1)}%{' '}
-          <IconTrendingUp className='h-4 w-4' />
+          <TrendingUp className='h-4 w-4' />
         </div>
         <div className='text-muted-foreground leading-none'>
           Based on data from January - June 2024

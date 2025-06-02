@@ -2,7 +2,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { SignUp as ClerkSignUpForm } from '@clerk/nextjs';
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
-import { IconStar } from '@tabler/icons-react';
+import { Star } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -64,7 +64,7 @@ export default function SignUpViewPage({ stars }: { stars: number }) {
               <span className='ml-1 inline'>Star on GitHub</span>{' '}
             </div>
             <div className='ml-2 flex items-center gap-1 text-sm md:flex'>
-              <IconStar
+              <Star
                 className='size-4 text-gray-500 transition-all duration-300 group-hover:text-yellow-300'
                 fill='currentColor'
               />

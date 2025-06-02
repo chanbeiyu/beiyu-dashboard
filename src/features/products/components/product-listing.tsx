@@ -1,6 +1,6 @@
-import { Product } from '@/constants/data';
-import { fakeProducts } from '@/constants/mock-api';
+import { fakeProducts } from '@/constants/mock-products-api';
 import { searchParamsCache } from '@/lib/searchparams';
+import App from '@/types/app';
 import { ProductTable } from './product-tables';
 import { columns } from './product-tables/columns';
 
@@ -22,7 +22,7 @@ export default async function ProductListingPage({}: ProductListingPage) {
 
   const data = await fakeProducts.getProducts(filters);
   const totalProducts = data.total_products;
-  const products: Product[] = data.products;
+  const products: App.Biz.Product[] = data.products;
 
   return (
     <ProductTable
