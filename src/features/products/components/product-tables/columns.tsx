@@ -1,14 +1,14 @@
 'use client';
 import { Badge } from '@/components/ui/badge';
 import { DataTableColumnHeader } from '@/components/ui/table/data-table-column-header';
-import { Product } from '@/constants/data';
 import { Column, ColumnDef } from '@tanstack/react-table';
 import { CheckCircle2, Text, XCircle } from 'lucide-react';
 import Image from 'next/image';
 import { CellAction } from './cell-action';
 import { CATEGORY_OPTIONS } from './options';
+import App from '@/types/app';
 
-export const columns: ColumnDef<Product>[] = [
+export const columns: ColumnDef<App.Biz.Product>[] = [
   {
     accessorKey: 'photo_url',
     header: 'IMAGE',
@@ -28,26 +28,27 @@ export const columns: ColumnDef<Product>[] = [
   {
     id: 'name',
     accessorKey: 'name',
-    header: ({ column }: { column: Column<Product, unknown> }) => (
+    header: ({ column }: { column: Column<App.Biz.Product, unknown> }) => (
       <DataTableColumnHeader column={column} title='Name' />
     ),
-    cell: ({ cell }) => <div>{cell.getValue<Product['name']>()}</div>,
+    cell: ({ cell }) => <div>{cell.getValue<App.Biz.Product['name']>()}</div>,
     meta: {
       label: 'Name',
       placeholder: 'Search products...',
       variant: 'text',
-      icon: Text
+      icon: Text,
+      className: ''
     },
     enableColumnFilter: true
   },
   {
     id: 'category',
     accessorKey: 'category',
-    header: ({ column }: { column: Column<Product, unknown> }) => (
+    header: ({ column }: { column: Column<App.Biz.Product, unknown> }) => (
       <DataTableColumnHeader column={column} title='Category' />
     ),
     cell: ({ cell }) => {
-      const status = cell.getValue<Product['category']>();
+      const status = cell.getValue<App.Biz.Product['category']>();
       const Icon = status === 'active' ? CheckCircle2 : XCircle;
 
       return (
@@ -61,7 +62,8 @@ export const columns: ColumnDef<Product>[] = [
     meta: {
       label: 'categories',
       variant: 'multiSelect',
-      options: CATEGORY_OPTIONS
+      options: CATEGORY_OPTIONS,
+      className: ''
     }
   },
   {
