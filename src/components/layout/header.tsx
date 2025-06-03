@@ -1,7 +1,7 @@
+import { ThemeCustomizer } from '@/components/customizer';
 import { Breadcrumbs } from '@/components/theme/breadcrumbs';
 import { LangSelector } from '@/components/theme/lang-selector';
 import { SearchInput } from '@/components/theme/search-input';
-import { ThemeSelector } from '@/components/theme/theme-selector';
 import { ModeToggle } from '@/components/theme/theme-toggle';
 import React from 'react';
 import { Separator } from '../ui/separator';
@@ -23,9 +23,9 @@ export default function Header() {
         <div className='hidden md:flex'>
           <SearchInput />
         </div>
-        <ThemeSelector />
         <ModeToggle />
         <LangSelector />
+        <ThemeCustomizer />
         <UserNav />
       </div>
     </header>

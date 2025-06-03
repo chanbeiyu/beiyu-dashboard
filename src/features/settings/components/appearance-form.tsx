@@ -1,5 +1,6 @@
 'use client';
 
+import { ThemeThumbnail } from '@/components/theme/theme-thumbnail';
 // import { useFont } from '@/context/font-context'
 import { Button } from '@/components/ui/button';
 import {
@@ -12,10 +13,11 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { useUITheme } from '@/context/ui-theme-context';
+import { cn } from '@/lib/utils';
 // import { fonts } from '@/config/fonts'
 import { showSubmittedData } from '@/utils/show-submitted-data';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useTheme } from 'next-themes';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -33,7 +35,7 @@ type AppearanceFormValues = z.infer<typeof appearanceFormSchema>;
 
 export function AppearanceForm() {
   // const { font, setFont } = useFont()
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme } = useUITheme();
 
   // This can come from your database or API.
   const defaultValues: Partial<AppearanceFormValues> = {
@@ -107,22 +109,7 @@ export function AppearanceForm() {
                     <FormControl>
                       <RadioGroupItem value='light' className='sr-only' />
                     </FormControl>
-                    <div className='border-muted hover:border-accent items-center rounded-md border-2 p-1'>
-                      <div className='space-y-2 rounded-sm bg-[#ecedef] p-2'>
-                        <div className='space-y-2 rounded-md bg-white p-2 shadow-xs'>
-                          <div className='h-2 w-[80px] rounded-lg bg-[#ecedef]' />
-                          <div className='h-2 w-[100px] rounded-lg bg-[#ecedef]' />
-                        </div>
-                        <div className='flex items-center space-x-2 rounded-md bg-white p-2 shadow-xs'>
-                          <div className='h-4 w-4 rounded-full bg-[#ecedef]' />
-                          <div className='h-2 w-[100px] rounded-lg bg-[#ecedef]' />
-                        </div>
-                        <div className='flex items-center space-x-2 rounded-md bg-white p-2 shadow-xs'>
-                          <div className='h-4 w-4 rounded-full bg-[#ecedef]' />
-                          <div className='h-2 w-[100px] rounded-lg bg-[#ecedef]' />
-                        </div>
-                      </div>
-                    </div>
+                    <ThemeThumbnail mode='light' />
                     <span className='block w-full p-2 text-center font-normal'>
                       Light
                     </span>
@@ -133,22 +120,7 @@ export function AppearanceForm() {
                     <FormControl>
                       <RadioGroupItem value='dark' className='sr-only' />
                     </FormControl>
-                    <div className='border-muted bg-popover hover:bg-accent hover:text-accent-foreground items-center rounded-md border-2 p-1'>
-                      <div className='space-y-2 rounded-sm bg-slate-950 p-2'>
-                        <div className='space-y-2 rounded-md bg-slate-800 p-2 shadow-xs'>
-                          <div className='h-2 w-[80px] rounded-lg bg-slate-400' />
-                          <div className='h-2 w-[100px] rounded-lg bg-slate-400' />
-                        </div>
-                        <div className='flex items-center space-x-2 rounded-md bg-slate-800 p-2 shadow-xs'>
-                          <div className='h-4 w-4 rounded-full bg-slate-400' />
-                          <div className='h-2 w-[100px] rounded-lg bg-slate-400' />
-                        </div>
-                        <div className='flex items-center space-x-2 rounded-md bg-slate-800 p-2 shadow-xs'>
-                          <div className='h-4 w-4 rounded-full bg-slate-400' />
-                          <div className='h-2 w-[100px] rounded-lg bg-slate-400' />
-                        </div>
-                      </div>
-                    </div>
+                    <ThemeThumbnail mode='dark' />
                     <span className='block w-full p-2 text-center font-normal'>
                       Dark
                     </span>
