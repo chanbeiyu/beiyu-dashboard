@@ -1,6 +1,8 @@
 'use client';
 
+import { delay } from '@/utils/common';
 import Link from 'next/link';
+import React, { use } from 'react';
 import { z } from 'zod';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -52,19 +54,16 @@ const profileFormSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
-// This can come from your database or API.
-const defaultValues: Partial<ProfileFormValues> = {
-  bio: 'I own a computer.',
-  urls: [
-    { value: 'https://shadcn.com' },
-    { value: 'http://twitter.com/shadcn' }
-  ]
-};
+export function ProfileForm({
+  profile
+}: {
+  profile: Promise<ProfileFormValues>;
+}) {
+  const defaultValues = React.use(profile);
 
-export function ProfileForm() {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues,
+    defaultValues: defaultValues,
     mode: 'onChange'
   });
 

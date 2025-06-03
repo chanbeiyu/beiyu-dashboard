@@ -1,9 +1,9 @@
 'use client';
+import { ActiveThemeProvider } from '@/components/theme/active-theme';
 import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
 import { useTheme } from 'next-themes';
 import React from 'react';
-import { ActiveThemeProvider } from '../active-theme';
 
 export default function Providers({
   activeThemeValue,

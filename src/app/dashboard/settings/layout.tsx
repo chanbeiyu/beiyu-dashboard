@@ -3,14 +3,7 @@ import { SettingsSkeleton } from '@/app/dashboard/settings/settings-skeleton';
 import PageContainer from '@/components/layout/page-container';
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
-import {
-  BellDot,
-  CircleUser,
-  Contrast,
-  SunMoon,
-  User,
-  UserPen
-} from 'lucide-react';
+import { sidebarNavItems } from '@/constants/data';
 import React, { Suspense } from 'react';
 
 export default async function DashboardLayout({
@@ -40,31 +33,3 @@ export default async function DashboardLayout({
     </PageContainer>
   );
 }
-
-const sidebarNavItems = [
-  {
-    title: 'Profile',
-    icon: <UserPen size={18} />,
-    href: '/dashboard/settings'
-  },
-  {
-    title: 'Account',
-    icon: <CircleUser size={18} />,
-    href: '/dashboard/settings/account'
-  },
-  {
-    title: 'Appearance',
-    icon: <SunMoon size={18} />,
-    href: '/dashboard/settings/appearance'
-  },
-  {
-    title: 'Notifications',
-    icon: <BellDot size={18} />,
-    href: '/dashboard/settings/notifications'
-  },
-  {
-    title: 'Display',
-    icon: <Contrast size={18} />,
-    href: '/dashboard/settings/display'
-  }
-];

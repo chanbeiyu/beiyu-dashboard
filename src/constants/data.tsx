@@ -135,6 +135,9 @@ export const navItems: App.Layout.NavItem[] = [
   }
 ];
 
+export const sidebarNavItems =
+  navItems.filter((navItem) => navItem.title === 'Settings')[0].items || [];
+
 export const tenants: App.Biz.Tenant[] = [
   {
     id: '1',

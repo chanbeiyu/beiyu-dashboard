@@ -1,10 +1,27 @@
 import type { NextConfig } from 'next';
 import { withSentryConfig } from '@sentry/nextjs';
+import createNextIntlPlugin from 'next-intl/plugin';
 
 // Define the base Next.js configuration
 const baseConfig: NextConfig = {
   images: {
     remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.ensoul.club'
+      },
+      {
+        protocol: 'https',
+        hostname: '*.cos.ap-nanjing.myqcloud.com'
+      },
+      {
+        protocol: 'https',
+        hostname: '*.oss-cn-hangzhou.aliyuncs.com'
+      },
+      {
+        protocol: 'https',
+        hostname: '*.public.blob.vercel-storage.com'
+      },
       {
         protocol: 'https',
         hostname: 'api.slingacademy.com',
@@ -53,5 +70,6 @@ if (!process.env.NEXT_PUBLIC_SENTRY_DISABLED) {
   });
 }
 
+const withNextIntl = createNextIntlPlugin();
 const nextConfig = configWithPlugins;
-export default nextConfig;
+export default withNextIntl(nextConfig);

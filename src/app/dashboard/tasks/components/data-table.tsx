@@ -27,14 +27,17 @@ import { DataTablePagination } from '../components/data-table-pagination';
 import { DataTableToolbar } from '../components/data-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  columnsPromise: Promise<ColumnDef<TData, TValue>[]>;
+  dataPromise: Promise<TData[]>;
 }
 
 export function DataTable<TData, TValue>({
-  columns,
-  data
+  columnsPromise,
+  dataPromise
 }: DataTableProps<TData, TValue>) {
+  const data = React.use(dataPromise);
+  const columns = React.use(columnsPromise);
+
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});

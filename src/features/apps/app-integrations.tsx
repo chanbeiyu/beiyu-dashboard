@@ -10,10 +10,9 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
-import { Separator } from '@/components/ui/separator';
 import App from '@/types/app';
 import { ArrowUpAz, ArrowUpZa, SlidersHorizontal } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 
 const appText = new Map<string, string>([
   ['all', 'All Apps'],
@@ -22,7 +21,7 @@ const appText = new Map<string, string>([
 ]);
 
 interface AppItemsProps {
-  items: App.Biz.App[];
+  items: Promise<App.Biz.App[]>;
 }
 
 export default function AppIntegrations({ items }: AppItemsProps) {
@@ -30,7 +29,9 @@ export default function AppIntegrations({ items }: AppItemsProps) {
   const [appType, setAppType] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredApps = items
+  const apps = use(items);
+
+  const filteredApps = apps
     .sort((a, b) =>
       sort === 'ascending'
         ? a.name.localeCompare(b.name)

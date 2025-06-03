@@ -1,12 +1,13 @@
+import { Breadcrumbs } from '@/components/theme/breadcrumbs';
+import { LangSelector } from '@/components/theme/lang-selector';
+import { SearchInput } from '@/components/theme/search-input';
+import { ThemeSelector } from '@/components/theme/theme-selector';
+import { ModeToggle } from '@/components/theme/theme-toggle';
 import React from 'react';
-import { SidebarTrigger } from '../ui/sidebar';
 import { Separator } from '../ui/separator';
-import { Breadcrumbs } from '../breadcrumbs';
-import SearchInput from '../search-input';
-import { UserNav } from './user-nav';
-import { ThemeSelector } from '../theme-selector';
-import { ModeToggle } from './ThemeToggle/theme-toggle';
+import { SidebarTrigger } from '../ui/sidebar';
 import CtaGithub from './cta-github';
+import { UserNav } from './user-nav';
 
 export default function Header() {
   return (
@@ -22,8 +23,9 @@ export default function Header() {
         <div className='hidden md:flex'>
           <SearchInput />
         </div>
-        <ModeToggle />
         <ThemeSelector />
+        <ModeToggle />
+        <LangSelector />
         <UserNav />
       </div>
     </header>

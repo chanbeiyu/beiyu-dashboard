@@ -3,6 +3,41 @@ import { IconName } from 'lucide-react/dynamic';
 declare namespace App {
   type IconXT = IconName | string;
 
+  namespace I18n {
+    type LangType = 'en-US' | 'zh-CN' | 'zh-TW';
+    type LangVType = 'en' | 'zh-Hans' | 'zh-Hant';
+    type LangOption = {
+      key: LangType;
+      vkey: LangVType;
+      label: string;
+      chart: string;
+      flag: string;
+    };
+    type Schema = {
+      theme: {
+        title: string;
+        description: string;
+        lang: {
+          label: string;
+          en: string;
+          'zh-CN': string;
+          'zh-TW': string;
+        };
+      };
+      ui: {
+        uploadText: string;
+        limitText: string;
+      };
+      menu: {
+        essential: string;
+        recent: string;
+        shuffle: string;
+        nearby: string;
+        faraway: string;
+      };
+    };
+  }
+
   // Layout Types
   namespace Layout {
     interface NavItem {

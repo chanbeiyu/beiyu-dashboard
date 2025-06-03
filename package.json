@@ -7,7 +7,8 @@
     "url": "https://github.com/Kiranism"
   },
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
+    "devt": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -73,6 +74,7 @@
     "match-sorter": "^8.0.0",
     "motion": "^11.17.0",
     "next": "15.3.2",
+    "next-intl": "^4.1.0",
     "next-themes": "^0.4.6",
     "nextjs-toploader": "^3.7.15",
     "nuqs": "^2.4.1",
@@ -100,6 +102,7 @@
   "devDependencies": {
     "@faker-js/faker": "^9.3.0",
     "@iconify-icon/react": "^3.0.0",
+    "@iconify-json/flag": "^1.2.6",
     "@iconify-json/logos": "^1.2.4",
     "@iconify/types": "^2.0.0",
     "@types/node": "22.10.2",

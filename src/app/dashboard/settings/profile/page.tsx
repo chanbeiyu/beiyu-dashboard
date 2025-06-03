@@ -1,7 +1,7 @@
-import { ProfileForm } from '@/app/dashboard/settings/profile/profile-form';
-import ContentSection from '../components/content-section';
+import { ProfileForm } from '@/features/settings/components/profile-form';
+import { ContentSection } from '../components/content-section';
 
-export default function SettingsProfile() {
+export default function Page() {
   return (
     <ContentSection
       title='Profile'

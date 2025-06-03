@@ -1,9 +1,6 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import React, { useState, type JSX } from 'react';
-import { cn } from '@/lib/utils';
+import { IconX } from '@/components/icon-x';
 import { buttonVariants } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
@@ -13,13 +10,14 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import { cn } from '@/lib/utils';
+import App from '@/types/app';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
-  items: {
-    href: string;
-    title: string;
-    icon: JSX.Element;
-  }[];
+  items: App.Layout.NavItem[];
 }
 
 export default function SidebarNav({
@@ -45,9 +43,9 @@ export default function SidebarNav({
           </SelectTrigger>
           <SelectContent>
             {items.map((item) => (
-              <SelectItem key={item.href} value={item.href}>
-                <div className='flex gap-x-4 px-2 py-1'>
-                  <span className='scale-125'>{item.icon}</span>
+              <SelectItem key={item.url} value={item.url}>
+                <div className='flex items-center gap-x-3 px-2 py-1'>
+                  <span>{item.icon && <IconX icon={item.icon} />}</span>
                   <span className='text-md'>{item.title}</span>
                 </div>
               </SelectItem>
@@ -69,17 +67,19 @@ export default function SidebarNav({
         >
           {items.map((item) => (
             <Link
-              key={item.href}
-              href={item.href}
+              key={item.url}
+              href={item.url}
               className={cn(
                 buttonVariants({ variant: 'ghost' }),
-                pathname === item.href
+                pathname === item.url
                   ? 'bg-muted hover:bg-muted'
                   : 'hover:bg-transparent hover:underline',
                 'justify-start'
               )}
             >
-              <span className='mr-2'>{item.icon}</span>
+              <span className='mr-1'>
+                {item.icon && <IconX icon={item.icon} />}
+              </span>
               {item.title}
             </Link>
           ))}
