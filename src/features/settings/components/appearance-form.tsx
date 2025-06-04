@@ -1,7 +1,6 @@
 'use client';
 
 import { ThemeThumbnail } from '@/components/theme/theme-thumbnail';
-// import { useFont } from '@/context/font-context'
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -14,8 +13,6 @@ import {
 } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useUITheme } from '@/context/ui-theme-context';
-import { cn } from '@/lib/utils';
-// import { fonts } from '@/config/fonts'
 import { showSubmittedData } from '@/utils/show-submitted-data';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';

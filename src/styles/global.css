@@ -198,3 +198,8 @@ body {
     scrollbar-color: var(--border) transparent;
   }
 }
+
+
+.dot::before {
+  content: "·";
+}

@@ -1,17 +1,17 @@
 'use client';
 
+import { useUITheme } from '@/context/ui-theme-context';
 import { Moon, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
 import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
 
 export function ModeToggle() {
-  const { setTheme, resolvedTheme } = useTheme();
+  const { setTheme, theme } = useUITheme();
 
   const handleThemeToggle = React.useCallback(
     (e?: React.MouseEvent) => {
-      const newMode = resolvedTheme === 'dark' ? 'light' : 'dark';
+      const newMode = theme === 'dark' ? 'light' : 'dark';
       const root = document.documentElement;
 
       if (!document.startViewTransition) {
@@ -29,17 +29,16 @@ export function ModeToggle() {
         setTheme(newMode);
       });
     },
-    [resolvedTheme, setTheme]
+    [theme, setTheme]
   );
 
   return (
     <Button
-      variant='secondary'
+      variant='ghost'
       size='icon'
-      className='group/toggle size-8'
       onClick={handleThemeToggle}
     >
-      {resolvedTheme === 'dark' ? <Moon /> : <Sun />}
+      {theme === 'dark' ? <Moon /> : <Sun />}
       <span className='sr-only'>Toggle theme</span>
     </Button>
   );

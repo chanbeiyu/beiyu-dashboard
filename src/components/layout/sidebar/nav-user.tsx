@@ -103,7 +103,7 @@ export function NavUser({ user, items }: NavUserProps) {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem
-                onClick={() => router.push('/dashboard/profile')}
+                onClick={() => router.push('/dashboard/settings/account')}
               >
                 <CircleCheck className='mr-2 h-4 w-4' />
                 Account

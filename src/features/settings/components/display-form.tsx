@@ -1,6 +1,7 @@
 'use client';
 
-import { z } from 'zod';
+import { displayFormSchema, DisplayFormValues } from '@/features/settings';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { showSubmittedData } from '@/utils/show-submitted-data';
@@ -16,47 +17,10 @@ import {
   FormMessage
 } from '@/components/ui/form';
 
-const items = [
-  {
-    id: 'recents',
-    label: 'Recents'
-  },
-  {
-    id: 'home',
-    label: 'Home'
-  },
-  {
-    id: 'applications',
-    label: 'Applications'
-  },
-  {
-    id: 'desktop',
-    label: 'Desktop'
-  },
-  {
-    id: 'downloads',
-    label: 'Downloads'
-  },
-  {
-    id: 'documents',
-    label: 'Documents'
-  }
-] as const;
+export function DisplayForm({display}: {display: Promise<DisplayFormValues>}) {
 
-const displayFormSchema = z.object({
-  items: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: 'You have to select at least one item.'
-  })
-});
+  const defaultValues = React.use(display);
 
-type DisplayFormValues = z.infer<typeof displayFormSchema>;
-
-// This can come from your database or API.
-const defaultValues: Partial<DisplayFormValues> = {
-  items: ['recents', 'home']
-};
-
-export function DisplayForm() {
   const form = useForm<DisplayFormValues>({
     resolver: zodResolver(displayFormSchema),
     defaultValues
@@ -79,7 +43,7 @@ export function DisplayForm() {
                   Select the items you want to display in the sidebar.
                 </FormDescription>
               </div>
-              {items.map((item) => (
+              {defaultValues.items.map((item) => (
                 <FormField
                   key={item.id}
                   control={form.control}
@@ -92,15 +56,9 @@ export function DisplayForm() {
                       >
                         <FormControl>
                           <Checkbox
-                            checked={field.value?.includes(item.id)}
+                            checked={item.enabled}
                             onCheckedChange={(checked) => {
-                              return checked
-                                ? field.onChange([...field.value, item.id])
-                                : field.onChange(
-                                    field.value?.filter(
-                                      (value) => value !== item.id
-                                    )
-                                  );
+                              return field.onChange([...field.value, item.id])
                             }}
                           />
                         </FormControl>

@@ -1,7 +1,8 @@
 'use client';
 
+import { notificationsFormSchema, NotificationsFormValues } from '@/features/settings';
 import Link from 'next/link';
-import { z } from 'zod';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { showSubmittedData } from '@/utils/show-submitted-data';
@@ -19,28 +20,10 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
 
-const notificationsFormSchema = z.object({
-  type: z.enum(['all', 'mentions', 'none'], {
-    required_error: 'You need to select a notification type.'
-  }),
-  mobile: z.boolean().default(false).optional(),
-  communication_emails: z.boolean().default(false).optional(),
-  social_emails: z.boolean().default(false).optional(),
-  marketing_emails: z.boolean().default(false).optional(),
-  security_emails: z.boolean()
-});
+export function NotificationsForm({notifications}: {notifications: Promise<NotificationsFormValues>}) {
 
-type NotificationsFormValues = z.infer<typeof notificationsFormSchema>;
+  const defaultValues = React.use(notifications);
 
-// This can come from your database or API.
-const defaultValues: Partial<NotificationsFormValues> = {
-  communication_emails: false,
-  marketing_emails: false,
-  social_emails: true,
-  security_emails: true
-};
-
-export function NotificationsForm() {
   const form = useForm<NotificationsFormValues>({
     resolver: zodResolver(notificationsFormSchema),
     defaultValues

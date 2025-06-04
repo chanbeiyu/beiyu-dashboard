@@ -1,15 +1,18 @@
 import App from '@/types/app';
 
 //Info: The following data is used for the sidebar navigation and Cmd K bar.
-export const navItems: App.Layout.NavItem[] = [
+export const navOverview: App.Layout.NavItem[] = [
   {
-    title: 'Dashboard',
-    url: '/dashboard/overview',
+    title: 'App',
+    url: '/dashboard/app',
     icon: 'layout-dashboard',
     isActive: false,
     shortcut: ['d', 'd'],
     items: [] // Empty array as there are no child items for Dashboard
   },
+];
+
+export const navManagement: App.Layout.NavItem[] = [
   {
     title: 'Product',
     url: '/dashboard/product',
@@ -34,29 +37,33 @@ export const navItems: App.Layout.NavItem[] = [
     items: [] // No child items
   },
   {
-    title: 'Kanban',
-    url: '/dashboard/kanban',
-    icon: 'kanban',
-    shortcut: ['k', 'k'],
-    isActive: false,
-    items: [] // No child items
-  },
-  {
-    title: 'Account',
+    title: 'Users',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'badge-dollar-sign',
     isActive: false,
     items: [
       {
-        title: 'Users',
+        title: 'List',
         url: '/dashboard/users',
         icon: 'user',
         shortcut: ['m', 'm']
       },
       {
-        title: 'Profile',
-        url: '/dashboard/profile',
-        icon: 'user-pen',
+        title: 'Create',
+        url: '/dashboard/create',
+        icon: 'user',
+        shortcut: ['m', 'm']
+      },
+      {
+        title: 'Edit',
+        url: '/dashboard/edit',
+        icon: 'user',
+        shortcut: ['m', 'm']
+      },
+      {
+        title: 'Details',
+        url: '/dashboard/details',
+        icon: 'user',
         shortcut: ['m', 'm']
       },
       {
@@ -68,35 +75,26 @@ export const navItems: App.Layout.NavItem[] = [
     ]
   },
   {
-    title: 'Errors',
+    title: 'Kanban',
+    url: '/dashboard/kanban',
+    icon: 'kanban',
+    shortcut: ['k', 'k'],
+    isActive: false,
+    items: [] // No child items
+  },
+  {
+    title: 'Editor',
     url: '#',
-    icon: 'bug',
+    icon: 'square-pen',
     isActive: false,
     items: [
       {
-        title: 'Forbidden (403)',
-        url: '/dashboard/errors/forbidden',
-        icon: 'door-closed-locked'
+        title: 'Platejs',
+        url: '/dashboard/editor/platejs',
       },
       {
-        title: 'Unauthorized (401)',
-        url: '/dashboard/errors/unauthorized',
-        icon: 'shield-x'
-      },
-      {
-        title: 'Not Found (404)',
-        url: '/dashboard/errors/not-found',
-        icon: 'eye-closed'
-      },
-      {
-        title: 'Maintenance Error (503)',
-        url: '/dashboard/errors/maintenance',
-        icon: 'circle-x'
-      },
-      {
-        title: 'Internal Server Error (500)',
-        url: '/dashboard/errors/general',
-        icon: 'monitor-x'
+        title: 'Tiptap',
+        url: '/dashboard/editor/tiptap',
       }
     ]
   },
@@ -135,8 +133,70 @@ export const navItems: App.Layout.NavItem[] = [
   }
 ];
 
-export const sidebarNavItems =
-  navItems.filter((navItem) => navItem.title === 'Settings')[0].items || [];
+export const navMisc: App.Layout.NavItem[] = [
+  {
+    title: 'Blank',
+    url: '/dashboard/blank',
+    icon: 'file',
+    isActive: false,
+  },
+  {
+    title: 'Disabled',
+    url: '/dashboard/disabled',
+    icon: 'shield-off',
+    isActive: false,
+    disabled: true,
+  },
+  {
+    title: 'Description',
+    url: '/dashboard/description',
+    icon: 'spell-check-2',
+    isActive: false,
+    disabled: true,
+    description: 'Empty array as there are no child items for Dashboard',
+  },
+  {
+    title: 'External link',
+    url: 'https://cn.bing.com/',
+    icon: 'spell-check-2',
+    isActive: false,
+    external: true,
+  },
+  {
+    title: 'Errors',
+    url: '#',
+    icon: 'bug',
+    isActive: false,
+    description: 'Empty array as there are no child items for Dashboard',
+    items: [
+      {
+        title: 'Forbidden (403)',
+        url: '/dashboard/errors/forbidden',
+      },
+      {
+        title: 'Unauthorized (401)',
+        url: '/dashboard/errors/unauthorized',
+      },
+      {
+        title: 'Not Found (404)',
+        url: '/dashboard/errors/not-found',
+      },
+      {
+        title: 'Maintenance Error (503)',
+        url: '/dashboard/errors/maintenance',
+      },
+      {
+        title: 'Internal Server Error (500)',
+        url: '/dashboard/errors/general',
+      }
+    ]
+  },
+];
+
+export const navItems = [...navManagement, ...navOverview, ...navMisc]
+
+export const settingsNavItems =
+  navManagement.filter((navItem) => navItem.title === 'Settings')[0].items || [];
 
 export const tenants: App.Biz.Tenant[] = [
   {
@@ -158,6 +218,7 @@ export const tenants: App.Biz.Tenant[] = [
     plan: 'Free'
   }
 ];
+
 export const projects: App.Biz.Project[] = [
   {
     name: 'Design Engineering',

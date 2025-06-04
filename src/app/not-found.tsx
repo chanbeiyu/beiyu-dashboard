@@ -1,35 +1,25 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 export default function NotFound() {
   const router = useRouter();
-
   return (
     <div className='absolute top-1/2 left-1/2 mb-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center text-center'>
-      <span className='from-foreground bg-linear-to-b to-transparent bg-clip-text text-[10rem] leading-none font-extrabold text-transparent'>
-        404
-      </span>
-      <h2 className='font-heading my-2 text-2xl font-bold'>
-        Something&apos;s missing
-      </h2>
-      <p>
-        Sorry, the page you are looking for doesn&apos;t exist or has been
-        moved.
-      </p>
-      <div className='mt-8 flex justify-center gap-2'>
-        <Button onClick={() => router.back()} variant='default' size='lg'>
-          Go back
-        </Button>
-        <Button
-          onClick={() => router.push('/dashboard')}
-          variant='ghost'
-          size='lg'
-        >
-          Back to Home
-        </Button>
+      <div className='m-auto flex h-full w-full flex-col items-center justify-center gap-2'>
+        <h1 className='text-[7rem] leading-tight font-bold'>404</h1>
+        <span className='font-medium'>Oops! Page Not Found!</span>
+        <p className='text-muted-foreground text-center'>
+          It seems like the page you&#39;re looking for <br />
+          does not exist or might have been removed.
+        </p>
+        <div className='mt-6 flex gap-4'>
+          <Button variant='outline' onClick={() => router.back()}>
+            Go Back
+          </Button>
+          <Button onClick={() => router.push('/')}>Back to Home</Button>
+        </div>
       </div>
     </div>
   );

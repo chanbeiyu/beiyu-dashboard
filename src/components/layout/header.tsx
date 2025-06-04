@@ -1,4 +1,5 @@
 import { ThemeCustomizer } from '@/components/customizer';
+import { Notifications } from '@/components/notifications';
 import { Breadcrumbs } from '@/components/theme/breadcrumbs';
 import { LangSelector } from '@/components/theme/lang-selector';
 import { SearchInput } from '@/components/theme/search-input';
@@ -19,11 +20,12 @@ export default function Header() {
       </div>
 
       <div className='flex items-center gap-2 px-4'>
-        <CtaGithub />
         <div className='hidden md:flex'>
           <SearchInput />
         </div>
+        <CtaGithub />
         <ModeToggle />
+        <Notifications />
         <LangSelector />
         <ThemeCustomizer />
         <UserNav />
