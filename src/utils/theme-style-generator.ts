@@ -1,21 +1,22 @@
 // Type Imports
-import type { ThemeStyleProps, ThemeStyles } from '@/types/theme';
+import type { ThemeStyleProps, ThemeStyles } from '@/types/theme'
 
 // Component Imports
-import { colorFormatter } from './color-converter';
-import type { ColorFormat } from './color-converter';
-import { getShadowMap } from './theme-shadows';
+import type { ColorFormat } from './color-converter'
+
+import { colorFormatter } from './color-converter'
+import { getShadowMap } from './theme-shadows'
 
 // Config Imports
-import { defaultLightThemeStyles } from '@/config/theme';
+import { defaultLightThemeStyles } from '@/config/theme'
 
 type ThemeType = {
-  light: ThemeStyleProps;
-  dark: ThemeStyleProps;
-};
+   light: ThemeStyleProps
+   dark: ThemeStyleProps
+}
 
 const generateShadowVariables = (shadowMap: Record<string, string>): string => {
-  return `
+   return `
   --shadow-2xs: ${shadowMap['shadow-2xs']};
   --shadow-xs: ${shadowMap['shadow-xs']};
   --shadow-sm: ${shadowMap['shadow-sm']};
@@ -23,39 +24,39 @@ const generateShadowVariables = (shadowMap: Record<string, string>): string => {
   --shadow-md: ${shadowMap['shadow-md']};
   --shadow-lg: ${shadowMap['shadow-lg']};
   --shadow-xl: ${shadowMap['shadow-xl']};
-  --shadow-2xl: ${shadowMap['shadow-2xl']};`;
-};
+  --shadow-2xl: ${shadowMap['shadow-2xl']};`
+}
 
 const generateTrackingVariables = (themeStyles: ThemeStyles): string => {
-  const styles = themeStyles['light'];
+   const styles = themeStyles['light']
 
-  if (styles['letter-spacing'] === '0em') {
-    return '';
-  }
+   if (styles['letter-spacing'] === '0em') {
+      return ''
+   }
 
-  return `
+   return `
 
   --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
   --tracking-tight: calc(var(--tracking-normal) - 0.025em);
   --tracking-normal: var(--tracking-normal);
   --tracking-wide: calc(var(--tracking-normal) + 0.025em);
   --tracking-wider: calc(var(--tracking-normal) + 0.05em);
-  --tracking-widest: calc(var(--tracking-normal) + 0.1em);`;
-};
+  --tracking-widest: calc(var(--tracking-normal) + 0.1em);`
+}
 
 export const generateThemeCode = (
-  styles: ThemeStyles,
-  colorFormat: ColorFormat = 'oklch'
+   styles: ThemeStyles,
+   colorFormat: ColorFormat = 'oklch',
 ): string => {
-  if (!('light' in styles) || !('dark' in styles)) {
-    throw new Error('Invalid theme styles: missing light or dark mode');
-  }
+   if (!('light' in styles) || !('dark' in styles)) {
+      throw new Error('Invalid theme styles: missing light or dark mode')
+   }
 
-  const formatColor = (color: string) => colorFormatter(color, colorFormat);
+   const formatColor = (color: string) => colorFormatter(color, colorFormat)
 
-  const themeStyles = styles as ThemeType;
+   const themeStyles = styles as ThemeType
 
-  return `:root {
+   return `:root {
   --background: ${formatColor(themeStyles.light.background)};
   --foreground: ${formatColor(themeStyles.light.foreground)};
   --card: ${formatColor(themeStyles.light.card)};
@@ -95,11 +96,11 @@ export const generateThemeCode = (
   --radius: ${themeStyles.light.radius};
   ${generateShadowVariables(getShadowMap(themeStyles.light, colorFormat))}
   ${
-    themeStyles.light['letter-spacing'] !==
-    defaultLightThemeStyles['letter-spacing']
-      ? `\n  --tracking-normal: ${themeStyles.light['letter-spacing']};`
-      : ''
-  }${themeStyles.light.spacing !== defaultLightThemeStyles.spacing ? `\n  --spacing: ${themeStyles.light.spacing};` : ''}
+      themeStyles.light['letter-spacing']
+      !== defaultLightThemeStyles['letter-spacing']
+         ? `\n  --tracking-normal: ${themeStyles.light['letter-spacing']};`
+         : ''
+   }${themeStyles.light.spacing !== defaultLightThemeStyles.spacing ? `\n  --spacing: ${themeStyles.light.spacing};` : ''}
 }
 
 .dark {
@@ -187,5 +188,5 @@ export const generateThemeCode = (
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);${generateTrackingVariables(themeStyles)}
-}${themeStyles['light']['letter-spacing'] != '0em' ? '\n\nbody {\n  letter-spacing: var(--tracking-normal);\n}' : ''}`;
-};
+}${themeStyles['light']['letter-spacing'] != '0em' ? '\n\nbody {\n  letter-spacing: var(--tracking-normal);\n}' : ''}`
+}

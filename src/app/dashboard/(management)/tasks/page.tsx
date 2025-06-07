@@ -1,52 +1,48 @@
-import PageContainer from '@/components/layout/page-container';
-import { Heading } from '@/components/ui/heading';
-import { Separator } from '@/components/ui/separator';
-import { DataTableSkeleton } from '@/components/ui/table/data-table-skeleton';
-import { columns } from '@/features/tasks/components/columns';
-import { DataTable } from '@/features/tasks/components/data-table';
-import { TasksDialogs } from '@/features/tasks/components/tasks-dialogs';
-import { TasksPrimaryButtons } from '@/features/tasks/components/tasks-primary-buttons';
-import TasksProvider from '@/features/tasks/context/tasks-context';
-import { tasks } from '@/features/tasks/data/tasks';
-import { delay } from '@/utils/common';
-import { Suspense } from 'react';
+import { Suspense } from 'react'
 
-const fetchDataValues = async () => {
-  await delay(2000);
-  return tasks;
-};
-const fetchColumnsValues = async () => {
-  await delay(2000);
-  return columns;
-};
+import { SearchParams } from 'nuqs/server'
 
-export default function Tasks() {
-  const data = fetchDataValues();
-  const columns = fetchColumnsValues();
+import PageContainer from '@/components/layout/page-container'
+import { DataTableSkeleton } from '@/components/table/data-table-skeleton'
+import { Heading } from '@/components/ui/heading'
+import { Separator } from '@/components/ui/separator'
 
-  return (
-    <TasksProvider>
-      <PageContainer scrollable={false}>
-        <div className='flex flex-1 flex-col space-y-4'>
-          <div className='flex items-start justify-between'>
-            <Heading
-              title='Tasks'
-              description="Here's a list of your tasks for this month!"
-            />
-            <TasksPrimaryButtons />
-          </div>
-          <Separator />
-          <Suspense
-            // key={key}
-            fallback={
-              <DataTableSkeleton columnCount={5} rowCount={8} filterCount={2} />
-            }
-          >
-            <DataTable dataPromise={data} columnsPromise={columns} />
-          </Suspense>
-        </div>
-      </PageContainer>
-      <TasksDialogs />
-    </TasksProvider>
-  );
+import { TaskDialogs, TaskListing, TaskPrimaryButtons, taskSearch, TasksProvider } from '@/features/tasks'
+
+export const metadata = {
+   title: 'Dashboard: Tasks',
+}
+
+type pageProps = {
+   searchParams: Promise<SearchParams>
+}
+
+export default async function Page(props: pageProps) {
+   const searchParams = await props.searchParams
+   // Allow nested RSCs to access the search params (in a type-safe way)
+   taskSearch.parse(searchParams)
+
+   // This key is used for invoke suspense if any of the search params changed (used for filters).
+   // const key = serialize({ ...searchParams });
+
+   return (
+      <TasksProvider>
+         <PageContainer scrollable={false}>
+            <div className="flex flex-1 flex-col space-y-4">
+               <div className="flex items-start justify-between">
+                  <Heading
+                     description="Here's a list of your tasks for this month!"
+                     title="Tasks"
+                  />
+                  <TaskPrimaryButtons />
+               </div>
+               <Separator />
+               <Suspense fallback={<DataTableSkeleton columnCount={5} filterCount={2} rowCount={8} />}>
+                  <TaskListing />
+               </Suspense>
+            </div>
+         </PageContainer>
+         <TaskDialogs />
+      </TasksProvider>
+   )
 }

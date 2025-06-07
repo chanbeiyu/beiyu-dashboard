@@ -1,26 +1,25 @@
-import { fakeProducts } from '@/constants/mock-users-api';
-import App from '@/types/app';
-import { notFound } from 'next/navigation';
-import ProductForm from './product-form';
+import { notFound } from 'next/navigation'
 
-type TProductViewPageProps = {
-  productId: string;
-};
+import { fakeProducts, ProductType } from '@/features/products'
 
-export default async function ProductViewPage({
-  productId
-}: TProductViewPageProps) {
-  let product = null;
-  let pageTitle = 'Create New Product';
+import ProductForm from './product-form'
 
-  if (productId !== 'new') {
-    const data = await fakeProducts.getProductById(Number(productId));
-    product = data.product as App.Biz.Product;
-    if (!product) {
-      notFound();
-    }
-    pageTitle = `Edit Product`;
-  }
+type ProductViewPageProps = {
+   productId: string
+}
 
-  return <ProductForm initialData={product} pageTitle={pageTitle} />;
+export default async function ProductViewPage({ productId }: ProductViewPageProps) {
+   let product = null
+   let pageTitle = 'Create New Product'
+
+   if (productId !== 'new') {
+      const data = await fakeProducts.getProductById(Number(productId))
+      product = data.data as ProductType
+      if (!product) {
+         notFound()
+      }
+      pageTitle = `Edit Product`
+   }
+
+   return <ProductForm initialData={product} pageTitle={pageTitle} />
 }

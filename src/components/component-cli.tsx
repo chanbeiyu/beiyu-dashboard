@@ -1,84 +1,86 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import type { JSX } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import CopyButton from '@/components/copy-button';
-import CodeBlock, { highlight } from '@/components/code-block';
-import { useLocalStorage } from '@/hooks/use-local-storage';
+import type { JSX } from 'react'
+import { useEffect, useState } from 'react'
 
-type PackageManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
+import CodeBlock, { highlight } from '@/components/code-block'
+import CopyButton from '@/components/copy-button'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-const ComponentCli = ({ name, toast }: { name: string; toast?: string }) => {
-  // Hooks
-  const [packageManager, setPackageManager] = useLocalStorage<PackageManager>(
-    'packageManager',
-    'pnpm'
-  );
+import { useLocalStorage } from '@/hooks/use-local-storage'
 
-  // Vars
-  const commands = {
-    pnpm: `pnpm dlx shadcn@latest add ${process.env.NEXT_PUBLIC_APP_URL}/r/${name}.json`,
-    npm: `npx shadcn@latest add ${process.env.NEXT_PUBLIC_APP_URL}/r/${name}.json`,
-    yarn: `npx shadcn@latest add ${process.env.NEXT_PUBLIC_APP_URL}/r/${name}.json`,
-    bun: `bunx --bun shadcn@latest add ${process.env.NEXT_PUBLIC_APP_URL}/r/${name}.json`
-  };
+type PackageManager = 'pnpm' | 'npm' | 'yarn' | 'bun'
 
-  const [highlightedCode, setHighlightedCode] = useState<JSX.Element | null>(
-    null
-  );
+const ComponentCli = ({ name, toast }: { name: string, toast?: string }) => {
+   // Hooks
+   const [packageManager, setPackageManager] = useLocalStorage<PackageManager>(
+      'packageManager',
+      'pnpm',
+   )
 
-  useEffect(() => {
-    const loadCode = async () => {
-      const highlighted = await highlight(
-        commands[packageManager as PackageManager],
-        'bash'
-      );
+   // Vars
+   const commands = {
+      pnpm: `pnpm dlx shadcn@latest add ${process.env.NEXT_PUBLIC_APP_URL}/r/${name}.json`,
+      npm: `npx shadcn@latest add ${process.env.NEXT_PUBLIC_APP_URL}/r/${name}.json`,
+      yarn: `npx shadcn@latest add ${process.env.NEXT_PUBLIC_APP_URL}/r/${name}.json`,
+      bun: `bunx --bun shadcn@latest add ${process.env.NEXT_PUBLIC_APP_URL}/r/${name}.json`,
+   }
 
-      setHighlightedCode(highlighted);
-    };
+   const [highlightedCode, setHighlightedCode] = useState<JSX.Element | null>(
+      null,
+   )
 
-    loadCode();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [packageManager]);
+   useEffect(() => {
+      const loadCode = async () => {
+         const highlighted = await highlight(
+            commands[packageManager as PackageManager],
+            'bash',
+         )
 
-  return (
-    <div className='relative'>
-      <Tabs
-        value={packageManager}
-        onValueChange={(value) => {
-          setPackageManager(value as PackageManager);
-        }}
-        className='rounded-md bg-zinc-950 dark:bg-zinc-900'
-      >
-        <TabsList className='dark h-auto w-full justify-start rounded-none border-b bg-transparent px-4 py-0'>
-          {Object.keys(commands).map((pkg) => (
-            <TabsTrigger
-              key={pkg}
-              value={pkg}
-              className='data-[state=active]:!text-foreground data-[state=active]:after:bg-primary hover:!text-muted-foreground !text-muted-foreground/70 relative flex-none cursor-pointer rounded-none border-0 p-3 font-normal after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 data-[state=active]:!bg-transparent data-[state=active]:shadow-none'
-            >
-              {pkg}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-        {Object.entries(commands).map(([pkg, command]) => (
-          <TabsContent className='m-0' key={pkg} value={pkg}>
-            <CodeBlock
-              code={command}
-              lang='bash'
-              preHighlighted={highlightedCode}
-            />
-          </TabsContent>
-        ))}
-      </Tabs>
-      <CopyButton
-        source={commands[packageManager as PackageManager]}
-        className='dark end-1 top-1'
-        toast={toast}
-      />
-    </div>
-  );
-};
+         setHighlightedCode(highlighted)
+      }
 
-export default ComponentCli;
+      loadCode()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [packageManager])
+
+   return (
+      <div className="relative">
+         <Tabs
+            className="rounded-md bg-zinc-950 dark:bg-zinc-900"
+            onValueChange={(value) => {
+               setPackageManager(value as PackageManager)
+            }}
+            value={packageManager}
+         >
+            <TabsList className="dark h-auto w-full justify-start rounded-none border-b bg-transparent px-4 py-0">
+               {Object.keys(commands).map((pkg) => (
+                  <TabsTrigger
+                     className="data-[state=active]:!text-foreground data-[state=active]:after:bg-primary hover:!text-muted-foreground !text-muted-foreground/70 relative flex-none cursor-pointer rounded-none border-0 p-3 font-normal after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 data-[state=active]:!bg-transparent data-[state=active]:shadow-none"
+                     key={pkg}
+                     value={pkg}
+                  >
+                     {pkg}
+                  </TabsTrigger>
+               ))}
+            </TabsList>
+            {Object.entries(commands).map(([pkg, command]) => (
+               <TabsContent className="m-0" key={pkg} value={pkg}>
+                  <CodeBlock
+                     code={command}
+                     lang="bash"
+                     preHighlighted={highlightedCode}
+                  />
+               </TabsContent>
+            ))}
+         </Tabs>
+         <CopyButton
+            className="dark end-1 top-1"
+            source={commands[packageManager as PackageManager]}
+            toast={toast}
+         />
+      </div>
+   )
+}
+
+export default ComponentCli

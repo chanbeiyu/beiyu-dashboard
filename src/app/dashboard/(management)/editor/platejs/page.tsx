@@ -1,9 +1,9 @@
-import KanbanViewPage from '@/features/kanban/components/kanban-view-page';
+import { PlatejsViewPage } from '@/features/editor/components/platejs-view-page'
 
 export const metadata = {
-  title: 'Dashboard : Kanban view'
-};
+   title: 'Dashboard : Platejs View',
+}
 
 export default function page() {
-  return <KanbanViewPage />;
+   return <PlatejsViewPage />
 }

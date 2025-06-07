@@ -1,9 +1,9 @@
-import ProfileViewPage from '@/features/profile/components/profile-view-page';
+import ProfileViewPage from '@/features/profile/components/profile-view-page'
 
 export const metadata = {
-  title: 'Dashboard : Account'
-};
+   title: 'Dashboard : Account',
+}
 
 export default async function Page() {
-  return <ProfileViewPage />;
+   return <ProfileViewPage />
 }

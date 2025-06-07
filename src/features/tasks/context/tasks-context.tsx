@@ -1,40 +1,42 @@
-'use client';
+'use client'
 
-import React, { useState } from 'react';
-import useDialogState from '@/hooks/use-dialog-state';
-import { Task } from '../data/schema';
+import React, { useState } from 'react'
 
-type TasksDialogType = 'create' | 'update' | 'delete' | 'import';
+import useDialogState from '@/hooks/use-dialog-state'
+
+import { TaskType } from '../data/schema'
+
+type TasksDialogType = 'create' | 'update' | 'delete' | 'import'
 
 interface TasksContextType {
-  open: TasksDialogType | null;
-  setOpen: (str: TasksDialogType | null) => void;
-  currentRow: Task | null;
-  setCurrentRow: React.Dispatch<React.SetStateAction<Task | null>>;
+   open: TasksDialogType | null
+   setOpen: (str: TasksDialogType | null) => void
+   currentRow: TaskType | null
+   setCurrentRow: React.Dispatch<React.SetStateAction<TaskType | null>>
 }
 
-const TasksContext = React.createContext<TasksContextType | null>(null);
+const TasksContext = React.createContext<TasksContextType | null>(null)
 
 interface Props {
-  children: React.ReactNode;
+   children: React.ReactNode
 }
 
-export default function TasksProvider({ children }: Props) {
-  const [open, setOpen] = useDialogState<TasksDialogType>(null);
-  const [currentRow, setCurrentRow] = useState<Task | null>(null);
-  return (
-    <TasksContext value={{ open, setOpen, currentRow, setCurrentRow }}>
-      {children}
-    </TasksContext>
-  );
+export function TasksProvider({ children }: Props) {
+   const [open, setOpen] = useDialogState<TasksDialogType>(null)
+   const [currentRow, setCurrentRow] = useState<TaskType | null>(null)
+   return (
+      <TasksContext value={{ open, setOpen, currentRow, setCurrentRow }}>
+         {children}
+      </TasksContext>
+   )
 }
 
 export const useTasks = () => {
-  const tasksContext = React.useContext(TasksContext);
+   const tasksContext = React.useContext(TasksContext)
 
-  if (!tasksContext) {
-    throw new Error('useTasks has to be used within <TasksContext>');
-  }
+   if (!tasksContext) {
+      throw new Error('useTasks has to be used within <TasksContext>')
+   }
 
-  return tasksContext;
-};
+   return tasksContext
+}

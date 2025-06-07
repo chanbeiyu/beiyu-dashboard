@@ -1,53 +1,40 @@
-'use client';
+'use client'
 
-import { useUsers } from '../context/users-context';
-import { UsersActionDialog } from './users-action-dialog';
-import { UsersDeleteDialog } from './users-delete-dialog';
-import { UsersInviteDialog } from './users-invite-dialog';
+import { UsersActionDialog, UsersDeleteDialog, UsersInviteDialog, useUsers } from '@/features/users'
 
 export function UsersDialogs() {
-  const { open, setOpen, currentRow, setCurrentRow } = useUsers();
-  return (
-    <>
-      <UsersActionDialog
-        key='user-add'
-        open={open === 'add'}
-        onOpenChange={() => setOpen('add')}
-      />
+   const { open, setOpen, currentRow, setCurrentRow } = useUsers()
+   return (
+      <>
+         <UsersActionDialog key="user-add" onOpenChange={() => setOpen('add')} open={open === 'add'} />
+         <UsersInviteDialog key="user-invite" onOpenChange={() => setOpen('invite')} open={open === 'invite'} />
+         {currentRow && (
+            <>
+               <UsersActionDialog
+                  currentRow={currentRow}
+                  key={`user-edit-${currentRow.id}`}
+                  onOpenChange={() => {
+                     setOpen('edit')
+                     setTimeout(() => {
+                        setCurrentRow(null)
+                     }, 500)
+                  }}
+                  open={open === 'edit'}
+               />
 
-      <UsersInviteDialog
-        key='user-invite'
-        open={open === 'invite'}
-        onOpenChange={() => setOpen('invite')}
-      />
-
-      {currentRow && (
-        <>
-          <UsersActionDialog
-            key={`user-edit-${currentRow.id}`}
-            open={open === 'edit'}
-            onOpenChange={() => {
-              setOpen('edit');
-              setTimeout(() => {
-                setCurrentRow(null);
-              }, 500);
-            }}
-            currentRow={currentRow}
-          />
-
-          <UsersDeleteDialog
-            key={`user-delete-${currentRow.id}`}
-            open={open === 'delete'}
-            onOpenChange={() => {
-              setOpen('delete');
-              setTimeout(() => {
-                setCurrentRow(null);
-              }, 500);
-            }}
-            currentRow={currentRow}
-          />
-        </>
-      )}
-    </>
-  );
+               <UsersDeleteDialog
+                  currentRow={currentRow}
+                  key={`user-delete-${currentRow.id}`}
+                  onOpenChange={() => {
+                     setOpen('delete')
+                     setTimeout(() => {
+                        setCurrentRow(null)
+                     }, 500)
+                  }}
+                  open={open === 'delete'}
+               />
+            </>
+         )}
+      </>
+   )
 }

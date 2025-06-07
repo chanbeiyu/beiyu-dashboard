@@ -1,0 +1,4 @@
+
+.dot::before {
+  content: "·";
+}
